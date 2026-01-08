@@ -3,14 +3,11 @@
 name: CI
 
 # Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: [ "master" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
+on: [push]
+  
+permissions:
+  contents: write  # 允许创建 Release、提交代码
+  issues: read     # 允许读取 Issue
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -26,7 +23,7 @@ jobs:
       
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
-      # Runs a single command using the runners shell
+
       - name: Build
         run: |
           bash ./make_dist.sh
