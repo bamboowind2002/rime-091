@@ -1,0 +1,5 @@
+recipe:
+  Rx: wubi091
+  install_files: >-
+    wubi091*.yaml
+    lua/wubi091/*

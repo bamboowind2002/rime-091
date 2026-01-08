@@ -169,6 +169,6 @@ simp:
   tags: [ abc ]
 
 __patch:
-  menu/page_size: 3
+  menu/page_size: 5
 
 
