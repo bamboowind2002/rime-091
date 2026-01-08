@@ -1,0 +1,174 @@
+# Rime schema settings
+# encoding: utf-8
+schema:
+  schema_id: wubi091
+  name: "091五笔"
+  version: "0.20"
+  author:
+    - 始创者 行走的风景
+  description: |
+    码表源自 晓览
+    敲 ` 键进入拼音反查
+
+switches:
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ ，。, ，． ]
+  - name: extended_charset
+    states: [ 通用, 扩展 ]
+  - name: zh_t
+    states: [ 简体, 繁體 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - lua_processor@*wubi091/auto_clear
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - table_translator
+    - history_translator
+    - lua_translator@*wubi091/universal_key
+  filters:
+    - lua_filter@*wubi091/datetime
+    - simplifier@simp
+
+#Z键重复
+history:
+  input: z
+  size: 0
+  initial_quality: 10000
+
+
+speller:
+  delimiter: " ;'"
+  auto_select: true
+  auto_select_pattern: ^;\w+$
+  alphabet: 'abcdefghijklmnopqrstuvwxyz'
+  initials: 'abcdefghijklmnopqrstuvwxyz'
+
+translator:
+  dictionary: wubi091
+  enable_charset_filter: true
+  enable_sentence: false #是否开启自动造句
+  enable_encoder: false #是否开启自动造词
+  enable_completion: false
+  encode_commit_history: true
+  max_phrase_length: 4
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+  enable_user_dict: false #禁止词序调整
+
+reverse_lookup:
+  dictionary: moran_fixed_simp
+  prefix: "`"
+  tips: "〔魔然〕"
+  enable_completion: true
+
+punctuator:
+  full_shape:
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": "＃"
+    "$": "￥"
+    "%": "％"
+    "&": "＆"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*": "＊"
+    "+": "＋"
+    ",": {commit: "，"}
+    "-": "－"
+    .: {commit: "。"}
+    "/": "、"
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": "《"
+    "=": "＝"
+    ">": "》"
+    "?": {commit: "？"}
+    "@": "＠"
+    "[": "【"
+    "\\": "、"
+    "]": "】"
+    "^": {commit: "……"}
+    _: "——"
+    "`": "·"
+    "{": "｛"
+    "|": "｜"
+    "}": "｝"
+    "~": "～"
+  half_shape:
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": "#"
+    "$": "￥"
+    "%": "%"
+    "&": "&"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*":  "*"
+    "+": "+"
+    ",": {commit: "，"}
+    "-": "-"
+    .: {commit: "。"}
+    "/": "、"
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": "《"
+    "=": "="
+    ">": "》"
+    "?": {commit: "？"}
+    "@": "@"
+    "[": "【"
+    "\\": "、"
+    "]": "】"
+    "^": {commit: "……"}
+    _: "——"
+    "`": "`"
+    "{": "{"
+    "|": "|"
+    "}": "}"
+    "~": "~"
+
+key_binder:
+  import_preset: default
+  bindings:
+    __append:
+      - {accept: semicolon, send: 2, when: has_menu}
+      - {accept: apostrophe, send: 3, when: has_menu}
+      # - {accept: Caps_Lock, send: 4, when: has_menu }
+      - {accept: minus, send: Page_Up, when: has_menu}
+      - {accept: equal, send: Page_Down, when: has_menu}
+      - {accept: Tab, send: Escape, when: has_menu}
+      - {accept: "Control+t", toggle: zh_t, when: always}
+
+recognizer:
+  patterns:
+    reverse_lookup: "^`[a-z]*'?$"
+
+simp:
+  option_name: zh_t
+  opencc_config: s2t.json
+  tags: [ abc ]
+
+patch:
+  menu/page_size: 3
+
+
