@@ -8,7 +8,7 @@ schema:
     - 始创者 行走的风景
   description: |
     码表源自 晓览
-    敲 ` 键进入拼音反查
+    敲 ` 键进入魔然反查
 
 switches:
   - name: full_shape
