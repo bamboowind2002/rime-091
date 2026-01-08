@@ -168,7 +168,7 @@ simp:
   opencc_config: s2t.json
   tags: [ abc ]
 
-patch:
+__patch:
   menu/page_size: 3
 
 
