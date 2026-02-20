@@ -1,6 +1,6 @@
 recipe:
   Rx: wubi091
-  install_files: >-
-    wubi091.schema.yaml
-    wubi091.dict.yaml
-    lua/wubi091/*
+install_files: >-
+  wubi091.schema.yaml
+  wubi091.dict.yaml
+  lua/wubi091/*
