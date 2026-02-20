@@ -1,7 +1,7 @@
 # Rime schema settings
 # encoding: utf-8
 name: wubi091
-version: "202602"
+version: "260212"
 sort: original
 columns:
   - code
