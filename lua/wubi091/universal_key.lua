@@ -9,7 +9,7 @@ local function dfs(now_str, last, u, len, seg, env)
         env.mem:dict_lookup(now_str, false, 1024)
         for entry in env.mem:iter_dict() do
             if last ~= now_str then
-                yield(Candidate("universal", seg.start, seg._end, entry.text, ""))
+                yield(Candidate("universal", seg.start, seg._end, entry.text, now_str))
             end
         end
         return
